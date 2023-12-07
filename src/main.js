@@ -1,21 +1,10 @@
+import { checkNickname, generateNickname } from "./checkNickname.js";
+
 const elChat = document.getElementById("chat");
 const elNewMsg = document.getElementById("new-msg");
 
-//Nickname
-let nickname = prompt("Nickname:");
-
-const checkNickname = async () => {
-  const response = await fetch(
-    `./src/server/checkNickname.php?nickname=${nickname}`
-  );
-  const result = await response.json();
-
-  if (!result["result"]) {
-    nickname = prompt("This nickname already exists. Type new one:");
-    checkNickname();
-  }
-};
-nickname && checkNickname();
+let nickname = prompt("Nickname:") || generateNickname();
+nickname = await checkNickname(nickname);
 
 //New Message
 const newMessage = async () => {
@@ -24,7 +13,7 @@ const newMessage = async () => {
   );
   const result = await response.text();
 
-  console.log(result);
+  // console.log(result);
 
   elNewMsg.value = "";
 };
