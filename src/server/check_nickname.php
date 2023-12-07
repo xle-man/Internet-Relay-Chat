@@ -13,4 +13,6 @@
             echo json_encode(['result' => true]);
         }
     }
+
+    mysqli_close($conn);
 ?>
