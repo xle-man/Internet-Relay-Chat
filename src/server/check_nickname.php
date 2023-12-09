@@ -22,7 +22,7 @@
 
             $sql = "INSERT INTO users (id,nickname,color) VALUES (NULL,'$nickname','$color')";
             mysqli_query($conn, $sql);
-            
+
             echo json_encode(['result' => true]);
         }
     }

@@ -1,7 +1,7 @@
 export const checkNickname = async (nickname) => {
   if (nickname.trim() === "") {
     nickname = prompt("Nickname can't be empty. Type new one:");
-    checkNickname(nickname);
+    return checkNickname(nickname);
   }
 
   const response = await fetch(
@@ -11,12 +11,12 @@ export const checkNickname = async (nickname) => {
 
   if (!result["result"]) {
     nickname = prompt("This nickname already exists. Type new one:");
-    checkNickname(nickname);
+    return checkNickname(nickname);
+  } else {
+    return nickname;
   }
-
-  return nickname;
 };
 
-export const generateNickname = () => {
+export const generateNickname = async () => {
   return `nickname${Math.floor(Math.random() * 100 + 1)}`;
 };

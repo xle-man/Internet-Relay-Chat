@@ -14,40 +14,42 @@
 
     $lastID = getLastID($conn);
 
-    $output = array(
-        "status" => false
-    );
+    
 
     $time = time();
-    while (time() - $time < 0.5) {
+    while (time() - $time < 10) {
+        $output = array("status" => false);
+
         $sql = 'SELECT * FROM messages WHERE id > ' . $lastID;
         $result = mysqli_query($conn, $sql);
 
-        if($result){
-            if(mysqli_num_rows($result) > 0){
-                while($row = mysqli_fetch_assoc($result)){
-                    $output['status'] = true;
-                    $timestamp = $row['timestamp'];
-                    $msg = $row['message'];
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
 
-                    $sql = "SELECT * FROM messages, users WHERE users.id = " . $row['id_nickname'];
-                    $result = mysqli_query($conn, $sql);
+            $output['status'] = true;
+            $timestamp = $row['timestamp'];
+            $msg = $row['message'];
 
-                    if(mysqli_num_rows($result) > 0){
-                        while($row = mysqli_fetch_assoc($result)){
-                            $nickname = $row['nickname'];
-                            $color = $row['color'];
+            $sql = "SELECT * FROM messages, users WHERE users.id = " . $row['id_nickname'];
+            $result = mysqli_query($conn, $sql);
 
-                            $output['data'] = '<li class="message"><span style="color:#7CB9E8">[' . $timestamp . '] </span><@<span style="color:' . $color . '">' . $row['nickname'] . '</span>> <span class="e-message">' . $row['message'] . '</span></li>';
-                        }
-                    }
+            if ($result && mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
 
-                    // usleep(100);
-                }
+                $nickname = $row['nickname'];
+                $color = $row['color'];
+
+                $output['data'] = '<li class="message"><span style="color:#7CB9E8">[' . $timestamp . '] </span><@<span style="color:' . $color . '">' . $nickname . '</span>> <span class="e-message">' . $msg . '</span></li>';
+
+                header('Content-Type: application/json');
+                echo json_encode($output);
+                exit;
             }
         }
+        sleep(1);
     }
-    echo json_encode($output);
 
+    header('Content-Type: application/json');
+    echo json_encode($output);
     mysqli_close($conn);
 ?>

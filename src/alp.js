@@ -7,5 +7,8 @@ export const getData = async (elChat) => {
     elChat.innerHTML += result.data;
     $(".e-message").emoticonize({});
   }
-  getData(elChat);
+
+  setTimeout(() => {
+    getData(elChat);
+  }, 1000);
 };

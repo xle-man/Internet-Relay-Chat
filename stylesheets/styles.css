@@ -91,70 +91,8 @@ h1 {
 }
 
 svg {
+  min-width: 20px;
+  min-height: 20px;
   margin-left: 1rem;
   cursor: pointer;
 }
-
-/* tinyscrollbar */
-
-/* #chatlist .viewport {
-  width: 98%;
-  height: 100%;
-
-  overflow: hidden;
-  position: relative;
-
-  border-radius: 10px;
-}
-
-#chatlist .overview {
-  list-style: none;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-#chatlist .thumb .end,
-#chatlist .thumb {
-  height: 5px;
-  width: 100%;
-
-  overflow: hidden;
-  background-color: #003d5d;
-  border-radius: 10px;
-}
-
-#chatlist .scrollbar {
-  width: 2%;
-  position: relative;
-
-  border-radius: 10px;
-}
-
-#chatlist .track {
-  background-color: #d8eefd;
-  border-radius: 10px;
-  height: 100%;
-  position: relative;
-  padding: 0 1px;
-}
-
-#chatlist .thumb {
-  height: 20px;
-  cursor: pointer;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-}
-
-#chatlist .disable {
-  display: none;
-} 
-
-.noSelect {
-  user-select: none;
-  -o-user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-} */

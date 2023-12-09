@@ -6,8 +6,8 @@ const elChat = document.getElementById("chat");
 const elNewMsg = document.getElementById("new-msg");
 const elSvgSend = document.getElementById("svg-send");
 
-// let nickname = prompt("Nickname:") || generateNickname();
-let nickname = generateNickname();
+let nickname = prompt("Nickname:") || (await generateNickname());
+// let nickname = generateNickname();
 nickname = await checkNickname(nickname);
 
 const checkForCommands = (elNewMsg) => {
