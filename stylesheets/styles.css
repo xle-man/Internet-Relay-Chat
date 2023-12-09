@@ -32,8 +32,32 @@ h1 {
   height: 50%;
 
   display: flex;
+  overflow-y: scroll;
 
   border: 1px solid white;
+  border-radius: 10px;
+
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+#chatlist:hover {
+  scrollbar-color: #888 transparent;
+}
+
+#chatlist::-webkit-scrollbar {
+  width: 10px;
+}
+
+#chatlist::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+/* #chatlist::-webkit-scrollbar-track {
+  background-color: blue;
+  border-radius: 10px;
+} */
+#chatlist:hover::-webkit-scrollbar-thumb {
+  background-color: #888;
   border-radius: 10px;
 }
 
@@ -73,7 +97,7 @@ svg {
 
 /* tinyscrollbar */
 
-#chatlist .viewport {
+/* #chatlist .viewport {
   width: 98%;
   height: 100%;
 
@@ -112,7 +136,7 @@ svg {
   border-radius: 10px;
   height: 100%;
   position: relative;
-  /* padding: 0 1px; */
+  padding: 0 1px;
 }
 
 #chatlist .thumb {
@@ -123,9 +147,9 @@ svg {
   top: 0;
 }
 
-/* #chatlist .disable {
+#chatlist .disable {
   display: none;
-} */
+} 
 
 .noSelect {
   user-select: none;
@@ -133,4 +157,4 @@ svg {
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
-}
+} */
