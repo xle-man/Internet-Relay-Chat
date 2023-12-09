@@ -38,7 +38,7 @@
                             $nickname = $row['nickname'];
                             $color = $row['color'];
 
-                            $output['data'] = '<li class="message"><span style="color:#7CB9E8">[' . $timestamp . '] </span><@<span style="color:' . $color . '">' . $row['nickname'] . '</span>> ' . $row['message'] . '</li>';
+                            $output['data'] = '<li class="message"><span style="color:#7CB9E8">[' . $timestamp . '] </span><@<span style="color:' . $color . '">' . $row['nickname'] . '</span>> <span class="e-message">' . $row['message'] . '</span></li>';
                         }
                     }
 

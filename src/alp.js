@@ -5,6 +5,7 @@ export const getData = async (elChat) => {
   if (result.status) {
     console.log(result.data);
     elChat.innerHTML += result.data;
+    $(".e-message").emoticonize({});
   }
   getData(elChat);
 };
