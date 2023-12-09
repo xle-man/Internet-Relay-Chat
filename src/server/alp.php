@@ -14,23 +14,36 @@
 
     $lastID = getLastID($conn);
 
-
     $output = array(
         "status" => false
     );
 
     $time = time();
-    while (time() - $time < 1) {
+    while (time() - $time < 0.5) {
         $sql = 'SELECT * FROM messages WHERE id > ' . $lastID;
         $result = mysqli_query($conn, $sql);
 
-        if(mysqli_num_rows($result) > 0){
-            while($row = mysqli_fetch_assoc($result)){
-                $output['status'] = true;
-                $output['data'] = 
-                    '<div class="message">[' . $row['timestamp'] . ']<@' . $row['nickname'] . '>' . $row['message'] . '</div>';
+        if($result){
+            if(mysqli_num_rows($result) > 0){
+                while($row = mysqli_fetch_assoc($result)){
+                    $output['status'] = true;
+                    $timestamp = $row['timestamp'];
+                    $msg = $row['message'];
 
-                sleep(1);
+                    $sql = "SELECT * FROM messages, users WHERE users.id = " . $row['id_nickname'];
+                    $result = mysqli_query($conn, $sql);
+
+                    if(mysqli_num_rows($result) > 0){
+                        while($row = mysqli_fetch_assoc($result)){
+                            $nickname = $row['nickname'];
+                            $color = $row['color'];
+
+                            $output['data'] = '<li class="message"><span style="color:#7CB9E8">[' . $timestamp . '] </span><@<span style="color:' . $color . '">' . $row['nickname'] . '</span>> ' . $row['message'] . '</li>';
+                        }
+                    }
+
+                    // usleep(100);
+                }
             }
         }
     }

@@ -1,25 +1,24 @@
 import { checkNickname, generateNickname } from "./checkNickname.js";
 import { insertNewMessage } from "./insertNewMessage.js";
+import { getData } from "./alp.js";
 
 const elChat = document.getElementById("chat");
 const elNewMsg = document.getElementById("new-msg");
+const elSvgSend = document.getElementById("svg-send");
 
-let nickname = prompt("Nickname:") || generateNickname();
+// let nickname = prompt("Nickname:") || (await generateNickname());
+let nickname = generateNickname();
 nickname = await checkNickname(nickname);
 
 elNewMsg.focus();
 elNewMsg.addEventListener("keydown", (e) => {
-  e.key === "Enter" && insertNewMessage(elNewMsg, nickname);
+  if (e.key === "Enter" && elNewMsg.value.trim() !== "") {
+    insertNewMessage(elNewMsg, nickname);
+  }
 });
 
-const getData = async () => {
-  const response = await fetch("./src/server/alp.php");
-  const result = await response.json();
-  if (result.status) {
-    elChat.innerHTML += result.data;
-    console.log(elChat.innerHTML);
-  }
-  getData();
-};
+elSvgSend.addEventListener("click", () => {
+  elNewMsg.value.trim() !== "" && insertNewMessage(elNewMsg, nickname);
+});
 
-getData();
+getData(elChat);

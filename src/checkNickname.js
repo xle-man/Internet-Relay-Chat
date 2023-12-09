@@ -1,4 +1,9 @@
 export const checkNickname = async (nickname) => {
+  if (nickname.trim() === "") {
+    nickname = prompt("Nickname can't be empty. Type new one:");
+    checkNickname(nickname);
+  }
+
   const response = await fetch(
     `./src/server/check_nickname.php?nickname=${nickname}`
   );

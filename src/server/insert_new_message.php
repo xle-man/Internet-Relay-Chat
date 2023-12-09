@@ -12,10 +12,19 @@
     }
 
     function insertMessage($nickname, $msg, $conn) {
-        $current_time = date("H:i:s");
-        $sql = "INSERT INTO messages (id, timestamp, nickname, message) VALUES (null,'$current_time','$nickname', '$msg')";
+        $sql = "SELECT id FROM users WHERE nickname = '$nickname'";
+        $result = mysqli_query($conn, $sql);
 
-        mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0){
+            $row = mysqli_fetch_assoc($result);
+            $id_nickname = $row['id'];
+
+            $current_time = date("H:i:s");
+            $sql = "INSERT INTO messages (id, timestamp, id_nickname, message) VALUES (null, '$current_time', '$id_nickname', '$msg')";
+            
+            mysqli_query($conn, $sql);
+        }
+
     }
 
     if(isset($_GET["nickname"]) && isset($_GET["msg"])){
