@@ -10,5 +10,5 @@ export const getData = async (elChat) => {
 
   setTimeout(() => {
     getData(elChat);
-  }, 1000);
+  }, 500);
 };

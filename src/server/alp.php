@@ -1,7 +1,9 @@
 <?php
     include './db_connection.php';
 
-    function getLastID($conn){
+    function getLastID(){
+        global $conn;
+
         $sql = 'SELECT id FROM messages ORDER BY id DESC LIMIT 1';
         $result = mysqli_query($conn, $sql);
 
@@ -12,10 +14,9 @@
         }
     }
 
-    $lastID = getLastID($conn);
+    $lastID = getLastID();
 
-    
-
+    $output = array("status" => false);
     $time = time();
     while (time() - $time < 10) {
         $output = array("status" => false);
@@ -46,7 +47,7 @@
                 exit;
             }
         }
-        sleep(1);
+        usleep(500);
     }
 
     header('Content-Type: application/json');
