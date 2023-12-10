@@ -6,14 +6,16 @@ const elChat = document.getElementById("chat");
 const elNewMsg = document.getElementById("new-msg");
 const elSvgSend = document.getElementById("svg-send");
 
-let nickname = prompt("Nickname:") || (await generateNickname());
-// let nickname = generateNickname();
-nickname = await checkNickname(nickname);
+let tmp = prompt("Nickname:") || (await generateNickname());
+let [nickname, lastID] = await checkNickname(tmp);
 
 const checkForCommands = (elNewMsg) => {
   const command = elNewMsg.value.split(" ");
 
   if (command[0] === "/quit") {
+    const tmpEL = document.createElement("input");
+    tmpEL.value = "LEFT CHAT";
+    insertNewMessage(tmpEL, nickname, false);
     window.location.reload();
     elNewMsg.value = "";
   }
@@ -41,4 +43,4 @@ elSvgSend.addEventListener("click", () => {
   elNewMsg.value.trim() !== "" && checkForCommands(elNewMsg);
 });
 
-getData(elChat);
+getData(elChat, lastID);

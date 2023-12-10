@@ -1,53 +1,45 @@
 <?php
     include './db_connection.php';
 
-    function getLastID(){
-        global $conn;
+    $lastID = isset($_GET["lastID"]) ? $_GET["lastID"] : null;
 
-        $sql = 'SELECT id FROM messages ORDER BY id DESC LIMIT 1';
-        $result = mysqli_query($conn, $sql);
+    $output = array(
+        "status" => false,
+        "lastID" => $lastID
+    );
 
-        if(mysqli_num_rows($result) > 0){
-            while($row = mysqli_fetch_assoc($result)){
-                return $row['id'];
-            }
-        }
-    }
-
-    $lastID = getLastID();
-
-    $output = "";
     $time = time();
     while (time() - $time < 10) {
-        $output = "";
-
-        $sql = 'SELECT * FROM messages WHERE id > ' . $lastID;
+        $sql = 'SELECT messages.id,messages.timestamp,messages.message,messages.id_nickname,users.color,users.nickname FROM messages,users WHERE messages.id_nickname = users.id and messages.id > ' . $lastID;
+        
         $result = mysqli_query($conn, $sql);
 
         if ($result && mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-
-            $timestamp = $row['timestamp'];
-            $msg = $row['message'];
-
-            $sql = "SELECT * FROM messages, users WHERE users.id = " . $row['id_nickname'];
-            $result = mysqli_query($conn, $sql);
-
-            if ($result && mysqli_num_rows($result) > 0) {
-                $row = mysqli_fetch_assoc($result);
+            $data = "";
+            while($row = mysqli_fetch_assoc($result)){
+                $ID = $row['id'];
+                $timestamp = $row['timestamp'];
+                $msg = $row['message'];
+                $nicknameID = $row['id_nickname'];
 
                 $nickname = $row['nickname'];
                 $color = $row['color'];
 
-                $output = '<li class="message"><span style="color:#7CB9E8">[' . $timestamp . '] </span><@<span style="color:' . $color . '">' . $nickname . '</span>> <span class="e-message">' . $msg . '</span></li>';
+                $data .= '<li class="message"><span style="color:#7CB9E8">[' . $timestamp . '] </span><@<span style="color:' . $color . '">' . $nickname . '</span>> <span class="e-message">' . $msg . '</span></li>';
 
-                echo $output;
-                exit;
+                $output["status"] = true;
+                $output["lastID"] = $ID;
             }
+            
+            $output["data"] = $data;
+            echo json_encode($output);
+        }else{
+            echo json_encode($output);
         }
-        usleep(500);
+        exit;
     }
 
-    echo $output;
+    echo json_encode($output);
+
     mysqli_close($conn);
 ?>

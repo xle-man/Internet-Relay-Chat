@@ -20,8 +20,6 @@
         $sql = "SELECT id FROM users WHERE nickname = '$nickname'";
         $result = mysqli_query($conn, $sql);
 
-        echo $sql;
-
         if(mysqli_num_rows($result) > 0){
             $row = mysqli_fetch_assoc($result);
             $id_nickname = $row['id'];

@@ -13,7 +13,7 @@ export const checkNickname = async (nickname) => {
     nickname = prompt("This nickname already exists. Type new one:");
     return checkNickname(nickname);
   } else {
-    return nickname;
+    return [nickname, result["lastID"]];
   }
 };
 

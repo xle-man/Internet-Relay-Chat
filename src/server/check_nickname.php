@@ -9,6 +9,21 @@
         return $color;
     }
 
+    function getLastID(){
+        global $conn;
+
+        $sql = 'SELECT id FROM messages ORDER BY id DESC LIMIT 1';
+        $result = mysqli_query($conn, $sql);
+
+        if(mysqli_num_rows($result) > 0){
+            while($row = mysqli_fetch_assoc($result)){
+                return $row['id'];
+            }
+        }
+
+        return 0;
+    }
+
     $nickname = $_GET['nickname'];
 
     if(isset($nickname)){
@@ -23,7 +38,7 @@
             $sql = "INSERT INTO users (id,nickname,color) VALUES (NULL,'$nickname','$color')";
             mysqli_query($conn, $sql);
 
-            echo json_encode(['result' => true]);
+            echo json_encode(['result' => true, 'lastID' => getLastID()]);
         }
     }
 

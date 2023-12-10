@@ -35,21 +35,6 @@ CREATE TABLE `messages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`id`, `timestamp`, `id_nickname`, `message`) VALUES
-(1557, '20:35:31', 301, 'halo'),
-(1558, '20:35:36', 301, 'halo'),
-(1559, '20:35:39', 301, 'halo'),
-(1560, '20:35:43', 301, 'halo'),
-(1561, '20:36:02', 302, 'dd'),
-(1562, '20:41:32', 303, 'ds'),
-(1563, '20:41:34', 303, 'dd');
-
--- --------------------------------------------------------
-
---
 -- Struktura tabeli dla tabeli `users`
 --
 
@@ -58,20 +43,6 @@ CREATE TABLE `users` (
   `nickname` varchar(20) NOT NULL,
   `color` varchar(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `nickname`, `color`) VALUES
-(301, 'wiktor', '#42ea1d'),
-(302, 'maria', '#6ba971'),
-(303, 'tomek', '#36a21b'),
-(304, 'nickname86', '#4898a5');
-
---
--- Indeksy dla zrzutów tabel
---
 
 --
 -- Indeksy dla tabeli `messages`
