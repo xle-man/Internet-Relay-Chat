@@ -33,13 +33,12 @@
             
             $output["data"] = $data;
             echo json_encode($output);
-        }else{
-            echo json_encode($output);
+            break;
         }
-        exit;
+        usleep(5000);
     }
 
-    echo json_encode($output);
+    // echo json_encode($output);
 
     mysqli_close($conn);
 ?>

@@ -33,6 +33,8 @@
                 $current_time = date("H:i:s");
                 $sql = "INSERT INTO messages (id, timestamp, id_nickname, message) VALUES (null, '$current_time', '$id_nickname', '$msg')";
                 
+                echo $sql;
+
                 mysqli_query($conn, $sql);
             }
         }

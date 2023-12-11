@@ -1,18 +1,24 @@
 export const getData = async (elChat, lastID) => {
-  const response = await fetch(`./src/server/alp.php?lastID=${lastID}`);
+  let response = "";
+  let result = { lastID };
+  try {
+    response = await fetch(`./src/server/alp.php?lastID=${lastID}`);
+  } catch (err) {
+    getData(elChat, result.lastID);
+  }
 
-  if (response.status === 502) {
-    await getData(elChat, lastID);
-  } else if (response.status !== 200) {
-  } else {
-    const result = await response.json();
+  try {
+    result = await response.json();
+    console.log(result);
     if (result.status) {
       elChat.innerHTML += result.data;
-      $(".e-message").emoticonize({});
+      $(".e-message").emoticonize({
+        animate: false,
+      });
+      getData(elChat, result.lastID);
     }
-
-    // setTimeout(async () => {
-    await getData(elChat, result.lastID);
-    // }, 1000);
+  } catch (err) {
+    console.log(err);
+    getData(elChat, result.lastID);
   }
 };

@@ -26,7 +26,7 @@ const checkForCommands = (elNewMsg) => {
     insertNewMessage(elNewMsg, nickname, true);
     nickname = command[1];
     elNewMsg.value = "";
-  } else if (!["/color", "/nickname"].includes(command[0])) {
+  } else if (!["/color", "/nickname", "/quit"].includes(command[0])) {
     insertNewMessage(elNewMsg, nickname, false);
     elNewMsg.value = "";
   }
